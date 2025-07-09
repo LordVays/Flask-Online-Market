@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Профиль{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Информация о пользователе</h5>
+                    <p class="card-text"><strong>Имя пользователя:</strong> {{ user.username }}</p>
+                    <p class="card-text"><strong>Email:</strong> {{ user.email }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <h3>Мои заказы</h3>
+            {% if orders %}
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Товар</th>
+                            <th>Количество</th>
+                            <th>Цена</th>
+                            <th>Дата</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in orders %}
+                        <tr>
+                            <td>{{ order.product.name }}</td>
+                            <td>{{ order.quantity }}</td>
+                            <td>{{ order.product.price * order.quantity }} ₽</td>
+                            <td>{{ order.date_ordered.strftime('%d.%m.%Y %H:%M') }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <div class="alert alert-info">У вас пока нет заказов</div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

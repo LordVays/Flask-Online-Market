@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="jumbotron">
+    <h1 class="display-4">Добро пожаловать в Tech Store!</h1>
+    <p class="lead">Магазин электронной и бытовой техники</p>
+    <hr class="my-4">
+    <a class="btn btn-primary btn-lg" href="{{ url_for('main.products') }}" role="button">Посмотреть товары</a>
+</div>
+
+<div class="row">
+    {% for product in products %}
+    <div class="col-md-3">
+        <div class="card">
+            <img src="{{ url_for('static', filename='image/' + product.image) }}" class="card-img-top" alt="{{ product.name }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <p class="card-text">{{ product.price }} руб.</p>
+                <a href="{{ url_for('main.add_to_cart', product_id=product.id) }}" class="btn btn-primary">В корзину</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
